@@ -1,5 +1,5 @@
 const express = require('express');
-const config = require('codes.json');
+const config = require('./codes.json');
 const execSync = require('child_process').execSync;
 const app = express();
 
@@ -17,3 +17,15 @@ app.post('/exec', (req, res) => {
         res.send('{ "result": "no command" }');
     }
 });
+
+app.get('/exec', (req, res) => {
+    const { command } = req.query;
+    if (config[command]) {
+        execSync(irrpCommand(command));
+        req.send('{ "result": "ok" }');
+    } else {
+        res.send('{ "result": "no command" }');
+    }
+});
+
+app.listen(3339);
