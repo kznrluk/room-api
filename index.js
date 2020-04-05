@@ -12,7 +12,7 @@ app.post('/exec', (req, res) => {
     const { command } = req.body;
     if (config[command]) {
         execSync(irrpCommand(command));
-        req.send('{ "result": "ok" }');
+        res.send('{ "result": "ok" }');
     } else {
         res.send('{ "result": "no command" }');
     }
@@ -22,7 +22,7 @@ app.get('/exec', (req, res) => {
     const { command } = req.query;
     if (config[command]) {
         execSync(irrpCommand(command));
-        req.send('{ "result": "ok" }');
+        res.send('{ "result": "ok" }');
     } else {
         res.send('{ "result": "no command" }');
     }
