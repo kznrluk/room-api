@@ -19,6 +19,7 @@ app.post('/exec', (req, res) => {
 });
 
 app.get('/exec', (req, res) => {
+    res.header('Content-Type', 'application/json; charset=utf-8');
     const { command } = req.query;
     if (config[command]) {
         execSync(irrpCommand(command));
@@ -26,6 +27,13 @@ app.get('/exec', (req, res) => {
     } else {
         res.send('{ "result": "no command" }');
     }
+});
+
+app.get('/temp', (req, res) => {
+    const result = execSync('cat /sys/bus/w1/devices/28-2251cd000900/w1_slave').toString();
+    const temp = result.split('t=')[1] / 100;
+    res.header('Content-Type', 'application/json; charset=utf-8');
+    res.send(JSON.stringify({ temp }))
 });
 
 app.listen(3339);
