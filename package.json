@@ -1,0 +1,22 @@
+{
+  "name": "room-api",
+  "version": "1.0.0",
+  "description": "お部屋リモートAPI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kznrluk/room-api.git"
+  },
+  "author": "Kazunari Sasa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kznrluk/room-api/issues"
+  },
+  "homepage": "https://github.com/kznrluk/room-api#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
