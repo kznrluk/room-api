@@ -9,10 +9,12 @@ const irrpCommand = name => `python3 irrp.py -p -g17 -f codes.json ${name}`;
 
 const createTempWatcher = () => {
     let temp = 0;
-    setInterval(() => {
+    const command = () => {
         const result = execSync('cat /sys/bus/w1/devices/28-2251cd000900/w1_slave').toString();
         temp = result.split('t=')[1] / 1000 + 2.7;
-    },60 * 1000 * 1000);
+    };
+    setInterval(command,60 * 1000 * 1000);
+    command();
 
     return () => temp;
 };
