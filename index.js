@@ -7,6 +7,18 @@ app.use(express.json());
 
 const irrpCommand = name => `python3 irrp.py -p -g17 -f codes.json ${name}`;
 
+const createTempWatcher = () => {
+    let temp = 0;
+    setInterval(() => {
+        const result = execSync('cat /sys/bus/w1/devices/28-2251cd000900/w1_slave').toString();
+        temp = result.split('t=')[1] / 1000 + 2.7;
+    },60 * 1000 * 1000);
+
+    return () => temp;
+};
+
+const getTemp = createTempWatcher();
+
 app.post('/exec', (req, res) => {
     res.header('Content-Type', 'application/json; charset=utf-8');
     const { command } = req.body;
@@ -30,8 +42,7 @@ app.get('/exec', (req, res) => {
 });
 
 app.get('/temp', (req, res) => {
-    const result = execSync('cat /sys/bus/w1/devices/28-2251cd000900/w1_slave').toString();
-    const temp = result.split('t=')[1] / 1000 + 2.7;
+    const temp = getTemp();
     res.header('Content-Type', 'application/json; charset=utf-8');
     res.send(JSON.stringify({ temp }))
 });
