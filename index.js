@@ -31,7 +31,7 @@ app.get('/exec', (req, res) => {
 
 app.get('/temp', (req, res) => {
     const result = execSync('cat /sys/bus/w1/devices/28-2251cd000900/w1_slave').toString();
-    const temp = result.split('t=')[1] / 1000;
+    const temp = result.split('t=')[1] / 1000 + 2.7;
     res.header('Content-Type', 'application/json; charset=utf-8');
     res.send(JSON.stringify({ temp }))
 });
