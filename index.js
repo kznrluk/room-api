@@ -11,7 +11,7 @@ const createTempWatcher = () => {
     let temp = 0;
     const command = () => {
         const result = execSync('cat /sys/bus/w1/devices/28-2251cd000900/w1_slave').toString();
-        temp = result.split('t=')[1] / 1000 + 2.7;
+       temp = result.split('t=')[1] / 1000;
     };
     setInterval(command,60 * 1000 * 1000);
     command();
@@ -47,6 +47,12 @@ app.get('/temp', (req, res) => {
     const temp = getTemp();
     res.header('Content-Type', 'application/json; charset=utf-8');
     res.send(JSON.stringify({ temp }))
+});
+
+app.get('/shutdown', (req, res) => {
+    res.header('Content-Type', 'application/json; charset=utf-8');
+    res.send(JSON.stringify({ result: 'ok' }));
+    execSync('sudo /sbin/shutdown now');
 });
 
 app.listen(3339);
