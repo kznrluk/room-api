@@ -44,7 +44,7 @@ const getCO2  = createCO2Watcher();
 
 const createCO2Notifier = () => {
     const notify = (co2val) => {
-        fetch('https://hooks.slack.com/services/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',
+        fetch('',
             {
                 method: 'POST',
                 body: JSON.stringify({
