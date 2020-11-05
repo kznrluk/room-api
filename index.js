@@ -64,6 +64,7 @@ const createCO2Notifier = () => {
                 console.log('notified');
                 notify(co2);
                 notified = threshold;
+                break;
             }
         }
 	if (notified > co2) {
